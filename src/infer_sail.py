@@ -160,8 +160,8 @@ def human_seg_tracking(pre_gray, cur_gray, prev_cfd, dl_weights, disflow):
     is_track = np.zeros_like(pre_gray)
     flow_fw = disflow.calc(pre_gray, cur_gray, None)
     flow_bw = disflow.calc(cur_gray, pre_gray, None)
-    flow_fw = np.round(flow_fw).astype(np.int)
-    flow_bw = np.round(flow_bw).astype(np.int)
+    flow_fw = np.round(flow_fw).astype(np.int32)
+    flow_bw = np.round(flow_bw).astype(np.int32)
     y_list = np.array(range(h))
     x_list = np.array(range(w))
     yv, xv = np.meshgrid(y_list, x_list)
@@ -195,7 +195,7 @@ def human_seg_track_fuse(track_cfd, dl_cfd, dl_weights, is_track):
         cur_cfd: 光流跟踪图和人像分割结果融合图
     """
     fusion_cfd = dl_cfd.copy()
-    is_track = is_track.astype(np.bool)
+    is_track = is_track.astype(np.bool_)
     fusion_cfd[is_track] = dl_weights[is_track] * dl_cfd[is_track] + (
         1 - dl_weights[is_track]) * track_cfd[is_track]
     # 确定区域
