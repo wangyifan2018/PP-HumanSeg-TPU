@@ -2,9 +2,10 @@ model_transform.py \
   --model_name pp-humansegv2-mobile_192x192 \
   --model_def human_pp_humansegv2_mobile_192x192.onnx \
   --input_shapes [[1,3,192,192]] \
-  --mean 0.0,0.0,0.0 \
-  --scale 0.0039216,0.0039216,0.0039216 \
+  --mean 0.5,0.5,0.5 \
+  --scale 0.007843,0.007843,0.007843 \
   --mlir pp-humansegv2-mobile_192x192.mlir
+
 
 # fp16
 model_deploy.py \
@@ -37,7 +38,5 @@ model_deploy.py \
   --calibration_table pp-humansegv2-mobile_192x192_cali_table \
   --chip bm1684x \
   --model pp-humansegv2-mobile_192x192_int8.bmodel \
-  --test_input pp-humansegv2-mobile_192x192_in_f32.npz \
-  --test_reference pp-humansegv2-mobile_192x192.npz \
   --compare_all \
   --debug
